@@ -7,15 +7,15 @@ export default function reducer(state, action) {
             ...state,
             teams: action.payload,
          };
-      case "ADD_TEAM":
+      case "ADD_PLAYER":
          return {
             ...state,
-            teams: [...state.teams, action.payload],
+            players: [...state.players, action.payload],
          };
-      case "REMOVE_TEAM":
+      case "REMOVE_PLAYER":
          return{
             ...state,
-            teams:state.teams.filter((team) =>team.id !== action.payload)
+            players:state.players.filter((player) =>player.id !== action.payload)
          }
       default:
          return state;

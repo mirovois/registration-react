@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Modal from '../component/Modal'
 import img from '../assets/ava.jpg'
 import {PencilSquare, PersonDashFill} from 'react-bootstrap-icons'
+import {MyContext} from '../context';
 
 export const Player = ({id,firstName, lastName, occupation,age}) => {
+    const[editName, setEditName] = useState(firstName)
+
+    const{removePlayer,addPlayer} = useContext(MyContext);
+
     const[showModal,setShowModal]=useState(false);
     const[hover, setHover] = useState(false);
 
-    const removePlayer=(lastName) =>{
-        console.log(lastName)
+    const handleModifyPlayer = (e) =>{
+        e.preventDefault()
+        setEditName(editName);
     }
+
+    
+    
     return (       
             <article className="player"
             onMouseEnter={() =>{setHover(true)}}
@@ -21,7 +30,6 @@ export const Player = ({id,firstName, lastName, occupation,age}) => {
                     </div>
                     <div className="info">
                         <p className="name">{firstName} {lastName}</p>
-                        {/* <p className="occupation">{occupation}</p> */}
                         <p className="age">{age} years</p>
                     </div>
                 </div>
@@ -34,7 +42,7 @@ export const Player = ({id,firstName, lastName, occupation,age}) => {
                         />
                         <PersonDashFill 
                             size='18'
-                            onClick={() =>removePlayer(lastName)}
+                            onClick={() =>removePlayer(id)}
                             style={{opacity:0.6,cursor:'pointer',marginLeft:'6px'}}
                         />
                     </div>
@@ -42,19 +50,26 @@ export const Player = ({id,firstName, lastName, occupation,age}) => {
                     <Modal 
                     showModal={showModal} setShowModal={setShowModal}
                     >
-                        <form className="edit__form">
+                        <form className="edit__form" onSubmit={handleModifyPlayer}>
+                            <h3>Modify player data</h3>
                             <input 
+                            className="input__edit"
                             placeholder="first name"
                             type="text"
-                            value={firstName}
+                            value={editName}
+                            onChange={(e) =>setEditName(e.currentTarget.value)}
                             autoFocus
                             />
                              <input 
+                            className="input__edit"
                             placeholder="last name"
                             type="text"
                             value={lastName}
                             autoFocus
                             />
+                            <button >
+                                Confirm
+                            </button>
                         </form>
                         <button onClick={() =>setShowModal(false)}>Close</button>
                     </Modal>

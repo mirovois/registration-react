@@ -5,7 +5,7 @@ function Modal({ children, showModal, setShowModal }) {
 
     const closeModal = (e) => {
         if (e.target === modalRef.current) {
-            setShowModal(false)
+            setShowModal(true)
         }
     };
     return (

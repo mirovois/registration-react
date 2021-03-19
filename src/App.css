@@ -33,12 +33,11 @@
   justify-content: flex-start;
   align-items: flex-end;
 }
-form {
+.registration__form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   row-gap: 2rem;
-  
   flex: 0.6;
 }
 .row {
@@ -59,20 +58,20 @@ form {
   margin-bottom: 2px;
 }
 
-input {
+.input__reg {
   background: transparent;
   outline: none;
   border: 1px solid #c4c4c4;
   padding: 6px;
   color: #e5e5e5;
   font-size: 1rem;
-  
+
   font-weight: 300;
 }
-input:focus {
+.input__reg :focus {
   outline: none;
 }
-input::placeholder {
+.input__reg ::placeholder {
   font-weight: lighter;
   font-size: 0.8rem;
 }
@@ -116,27 +115,26 @@ input::placeholder {
   align-items: flex-end;
   margin-bottom: 1rem;
 }
-.content .title .header{
+.content .title .header {
   display: flex;
   align-items: center;
 }
-.content .title .header h2{
+.content .title .header h2 {
   font-weight: 500;
   margin-right: 2px;
 }
 .content .players {
-  
   flex: 0.6;
   width: 50%;
 }
 
 /* PLAYER info */
-.player{
+.player {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.player .personal{
+.player .personal {
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -179,9 +177,25 @@ img {
   transform: translate(-50%, -25%);
   background: white;
   color: black;
+  /* max-width: 700px; */
 }
 
 /* EDIT FROM */
 .edit__form {
   width: 400px;
+  padding: 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+.input__edit {
+  margin: auto;
+  border: none;
+  width: 90%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #0080ff;
+}
+.input__edit:focus {
+  outline: none;
 }

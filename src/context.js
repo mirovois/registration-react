@@ -1,9 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 import teamReducer from './reducer';
 
-const initialState = {
-   teams: [{id:1,name:"Habs"}, {id:2, name:"Raptors"}]
-};
+const initialState = {players:[
+    {id:1, firstName:"Miro", lastName:"Voisovych", occupation:"dev", age:35},
+    {id:2, firstName:"Harry", lastName:"Kane", occupation:"forward", age:29},
+    {id:3, firstName:"Elon", lastName:"Mask", occupation:"technoking", age:44},
+]};
 
 // Create Context
 export const MyContext = createContext(initialState);
@@ -21,21 +23,21 @@ export const TeamContextProvider = ({children}) =>{
         })
     }
 
-    const addTeam =(team) =>{
+    const addPlayer =(player) =>{
         dispatch({
-            type:"ADD_TEAM",
-            payload:team
+            type:"ADD_PLAYER",
+            payload:player
         })
     }
 
-    const removeTeam = (id) =>{
+    const removePlayer = (id) =>{
         dispatch({
-            type:"REMOVE_TEAM",
+            type:"REMOVE_PLAYER",
             payload: id
         })
     }
     return (
-        <MyContext.Provider value={{teams:state.teams, fetchTeams, addTeam, removeTeam}}>
+        <MyContext.Provider value={{players:state.players, fetchTeams, addPlayer, removePlayer}}>
             {children}
         </MyContext.Provider>
     )
