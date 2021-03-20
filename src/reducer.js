@@ -2,11 +2,12 @@
 
 export default function reducer(state, action) {
    switch(action.type) {
-      case "FETCH_TEAMS":
+      case "FETCH_PLAYERS":
          return {
             ...state,
-            teams: action.payload,
+            players: action.payload,
          };
+      
       case "ADD_PLAYER":
          return {
             ...state,

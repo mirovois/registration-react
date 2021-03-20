@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Player } from './Player';
 import {CaretRightFill, CaretDownFill} from 'react-bootstrap-icons';
-import {MyContext} from '../context';
+import { MyContext } from '../context';
 
 
 // const players = [
@@ -10,9 +10,22 @@ import {MyContext} from '../context';
 //     {id:3, firstName:"Elon", lastName:"Mask", occupation:"technoking", age:44},
 // ]
 
-const Players = () => {
-    const{players} = useContext(MyContext);
 
+
+const Players = () => {
+const{players, setPlayers} = useContext(MyContext);
+console.log('Players component'+ players)
+// const[players,setPlayers] = useState([])
+
+// useEffect(() =>{
+//     const fetchData = async() =>{
+//         const response = await axios.get('/players')
+//         setPlayers(response.data)
+//         console.log('Fetched data'+ response.data)
+//     }
+//     fetchData()
+// },[])
+    
     const[showMenu, setShowMenu] = useState(true);
     const openMenu =() =>{
         setShowMenu(!showMenu)
@@ -44,12 +57,12 @@ const Players = () => {
         <div className="players">
             {players.map(player =>
                <Player 
-               key={player.id}
+            //    key={player._id}
                firstName={player.firstName}
                lastName={player.lastName}
                occupation={player.occupation}
                age={player.age}
-               id={player.id}
+            //    id={player._id}
                />
             )}
         </div>}

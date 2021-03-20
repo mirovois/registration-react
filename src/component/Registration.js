@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react'
 import Input from './Input'
 import {MyContext} from '../context'
 import { uuid } from 'uuidv4'
+import axios from 'axios'
 
 // const players = [
 //     {id:1, firstName:"Miro", lastName:"Voisovych", occupation:"dev", age:35},
@@ -19,17 +20,17 @@ const Registration = () => {
 
     const handleAddPlayer =(e) =>{
         e.preventDefault()
-        addPlayer({
-            id:uuid(),
+        axios.post('/players',addPlayer({
+            // id:uuid(),
             firstName,
             lastName,
             occupation,
             age
-        })
-        setFirstName('');
-        setLastName('');
-        setOccupation('');
-        setAge('')
+        })) 
+        // setFirstName('');
+        // setLastName('');
+        // setOccupation('');
+        // setAge('')
         console.log('New Player added:')
     }
     console.log(players)
