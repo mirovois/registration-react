@@ -16,7 +16,12 @@ export default function reducer(state, action) {
       case "REMOVE_PLAYER":
          return{
             ...state,
-            players:state.players.filter((player) =>player.id !== action.payload)
+            players:state.players.filter((player) =>player._id !== action.payload)
+         };
+      case "MODIFY_PLAYER":
+         return{
+            ...state,
+            players:state.players.map(player =>player._id === action.payload ? action.payload : player)
          }
       default:
          return state;

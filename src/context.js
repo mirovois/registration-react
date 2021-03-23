@@ -14,34 +14,35 @@ import axios from 'axios';
 //     {id:2, firstName:"Harry", lastName:"Kane", occupation:"forward", age:29},
 //     {id:3, firstName:"Elon", lastName:"Mask", occupation:"technoking", age:44},
 // ];
-    const initialState = {players:[]}
-    // const[players, setPlayers] = useState(players)
-    
-    // useEffect(() =>{
+// const[players, setPlayers] = useState(players)
+
+// useEffect(() =>{
     //     const fetchData = async() =>{
-    //         const response = await axios.get('/players')
-    //         setPlayers(response.data)
-    //         console.log('Fetched data'+ response.data)
-    //     }
-    //     fetchData()
-    // },[])
-    
-// Create Context
-export const MyContext = createContext(initialState);
+        //         const response = await axios.get('/players')
+        //         setPlayers(response.data)
+        //         console.log('Fetched data'+ response.data)
+        //     }
+        //     fetchData()
+        // },[])
+        
+        // Create Context
+export const MyContext = createContext();
+        
+const initialState = {players:[]}
 
 // Create Provider
 export const TeamContextProvider = ({children}) =>{
 // Use Reducer
     const [state, dispatch] = useReducer(teamReducer, initialState);
     
-    useEffect(() =>{
-        const fetchData = async() =>{
-            const result = await axios.get('/players')
-            dispatch({type:'FETCH_PLAYERS', payload:result.data})
-            console.log('Data in registration fetched')
-       }
-        fetchData()
-    },[])
+    // useEffect(() =>{
+    //     const fetchData = async() =>{
+    //         const result = await axios.get('/players')
+    //         dispatch({type:'FETCH_PLAYERS', payload:result.data})
+    //         console.log('Data in registration fetched')
+    //    }
+    //     fetchData()
+    // },[])
 
 // Define reducer actions
     const fetchTeams = (players) =>{
@@ -65,7 +66,7 @@ export const TeamContextProvider = ({children}) =>{
         })
     }
     return (
-        <MyContext.Provider value={{players:state.players, fetchTeams, addPlayer, removePlayer}}>
+        <MyContext.Provider value={[state, dispatch]}>
             {children}
         </MyContext.Provider>
     )
@@ -73,3 +74,4 @@ export const TeamContextProvider = ({children}) =>{
 }
 
 // "proxy": "http://localhost:5000"
+// value={{players:state.players, fetchTeams, addPlayer, removePlayer}}

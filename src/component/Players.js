@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Player } from './Player';
 import {CaretRightFill, CaretDownFill} from 'react-bootstrap-icons';
 import { MyContext } from '../context';
+import axios from 'axios'
 
 
 // const players = [
@@ -13,10 +14,22 @@ import { MyContext } from '../context';
 
 
 const Players = () => {
-const{players, setPlayers} = useContext(MyContext);
-console.log('Players component'+ players)
+// const{players, setPlayers} = useContext(MyContext);
+const[state, dispatch] = useContext(MyContext);
+const{players} = state;
+// console.log('Players component'+ players)
 // const[players,setPlayers] = useState([])
 
+useEffect(() =>{
+    const fetchData = async() =>{
+        const response = await axios.get('/players')
+        dispatch({
+            type:"FETCH_PLAYERS",
+            payload: response.data
+        })
+    }
+    fetchData()
+},[dispatch])
 // useEffect(() =>{
 //     const fetchData = async() =>{
 //         const response = await axios.get('/players')
@@ -55,14 +68,14 @@ console.log('Players component'+ players)
 
         {showMenu&&
         <div className="players">
-            {players.map(player =>
+            {state.players.map(player =>
                <Player 
-            //    key={player._id}
+               key={player._id}
                firstName={player.firstName}
                lastName={player.lastName}
                occupation={player.occupation}
                age={player.age}
-            //    id={player._id}
+               id={player._id}
                />
             )}
         </div>}

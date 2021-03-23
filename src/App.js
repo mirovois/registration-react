@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-// import AddItem from './AddItem';
-// import List from './List';
 import Registration from './component/Registration';
 import Players from './component/Players';
 
