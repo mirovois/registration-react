@@ -28,7 +28,9 @@ import axios from 'axios';
         // Create Context
 export const MyContext = createContext();
         
-const initialState = {players:[]}
+const initialState = {
+    players:[]
+}
 
 // Create Provider
 export const TeamContextProvider = ({children}) =>{

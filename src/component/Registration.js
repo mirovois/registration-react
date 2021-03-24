@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import Input from './Input'
+// import Input from './Input'
 import { uuid } from 'uuidv4'
 import axios from 'axios'
 import { MyContext } from '../context';
@@ -14,38 +14,48 @@ const Registration = () => {
     // const{addPlayer,players} = useContext(MyContext)
 
     const[state, dispatch] = useContext(MyContext);
-    const[loading, isLoading] = useState(false)
-    const{players} = state;
 
-    const[firstName, setFirstName] = useState('');
-    const[lastName, setLastName] = useState('');
-    const[occupation,setOccupation] = useState('');
-    const[age,setAge] = useState('');
+    const{players} = state;
+    const[data,setData] = useState(players)
+    const[loading, isLoading] = useState(false)
+    const[submitting, isSubmitting] =useState(false)
+    const handleInputChange = e =>{
+        setData({
+            ...data,
+            [e.target.name]: e.target.value
+        })
+    }
 
     
     const handleAddPlayer = async(e) =>{
         
         //  console.log(`New player:${newPlayer}`)   
         e.preventDefault()
-        const newPlayer = {
-             firstName,
-             lastName,
-             occupation,
-             age
-                }
+        // const newPlayer = {
+        //      firstName,
+        //      lastName,
+        //      occupation,
+        //      age
+        //         }
+        setData({...data,isSubmitting:true});
         try{
             isLoading(true)
-            const response = await axios.post('/players',newPlayer)
+            const response = await axios.post('/players',data)
               dispatch({
-                type:"ADD_PLAYER",
+                type:"ADD_PLAYER",      
                 payload:response.data
               })
-              console.log("New player added:", newPlayer)
-            setFirstName('');
-            setLastName('');
-            setOccupation('');
-            setAge('')  
-            isLoading(false)
+            
+              console.log("New player added:", data)
+            // setFirstName('');
+            // setLastName('');
+            // setOccupation('');
+            // setAge('')  
+            setTimeout(() => {
+                setData(data);
+                isSubmitting(false)
+            }, 500);
+            
         }
         catch(error){
             console.log("Error adding new player:", error.message)
@@ -54,7 +64,7 @@ const Registration = () => {
 
     
 
-    console.log(players)
+    console.log(state.players)
     return (
         <div className="registration">
                 <div className="title">
@@ -65,34 +75,44 @@ const Registration = () => {
                     // onSubmit={handleAddPlayer}
                 >
                     <div className="row">
-                    <Input 
+                    <input 
                         heading="First name"
-                        value={firstName}
-                        setValue={setFirstName}
+                        value={data.firstName}
+                        onChange={handleInputChange}
+                        name='firstName'
+                        id='firstName'
+                        required
                         />
-                     <Input 
+                     <input 
                         heading="Last name"
-                        value={lastName}
-                        setValue={setLastName}
+                        value={data.lastName}
+                        onChange={handleInputChange}
+                        name='lastName'
+                        id='lastName'
                         />
                     </div>
                     <div className="row">
-                    <Input 
+                    <input 
                         heading="Occupation"
-                        value={occupation}
-                        setValue={setOccupation}
+                        value={data.occupation}
+                        onChange={handleInputChange}
+                        name='occupation'
                         />
-                    <Input 
+                    <input 
                         heading="Age"
-                        value={age}
-                        setValue={setAge}
+                        value={data.age}
+                        onChange={handleInputChange}
+                        name='age'
                         />
                     </div>
-                    <button className="btn__register" 
+            {data.errorMessage && (
+              <span className="form-error">{data.errorMessage}</span>
+            )}
+                    <button disabled={data.isSubmitting} className="btn__register" 
                     type='submit'
                     onClick={handleAddPlayer}
                     >
-                        {loading ? 'loading...' : 'Register for this game'}
+                        {data.isSubmitting ? 'loading...' : 'Register for this game'}
                     </button>
                 </form>
             </div>
