@@ -28,9 +28,13 @@ import axios from 'axios';
         // Create Context
 export const MyContext = createContext();
         
+<<<<<<< Updated upstream
 const initialState = {
     players:[]
 }
+=======
+const initialState = {players:[]}
+>>>>>>> Stashed changes
 
 // Create Provider
 export const TeamContextProvider = ({children}) =>{

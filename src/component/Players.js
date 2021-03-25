@@ -11,7 +11,11 @@ import axios from 'axios'
 //     {id:3, firstName:"Elon", lastName:"Mask", occupation:"technoking", age:44},
 // ]
 
+<<<<<<< Updated upstream
 
+=======
+// const URL='https://app-webregistration.herokuapp.com'
+>>>>>>> Stashed changes
 
 const Players = () => {
 // const{players, setPlayers} = useContext(MyContext);

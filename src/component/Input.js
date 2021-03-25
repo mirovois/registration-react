@@ -10,7 +10,11 @@ const Input = ({heading, value,name,handleInputChange,id}) => {
                     value={value}
                     onChange={handleInputChange}
                     placeholder={`Enter your ${heading}`}
+<<<<<<< Updated upstream
                     name={name}
+=======
+                    
+>>>>>>> Stashed changes
                     autoFocus
                     
                 />          
