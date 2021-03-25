@@ -9,7 +9,9 @@ import { MyContext } from '../context';
 //     {id:2, firstName:"Harry", lastName:"Kane", occupation:"forward", age:29},
 //     {id:3, firstName:"Elon", lastName:"Mask", occupation:"technoking", age:44},
 // ]
-// const URL='https://app-webregistration.herokuapp.com'
+const URL='https://app-webregistration.herokuapp.com'
+
+// "proxy": "https://app-webregistration.herokuapp.com"
 
 const Registration = () => {
     
@@ -30,7 +32,7 @@ const Registration = () => {
         e.preventDefault()
         const newPlayer = formValues
             try{                
-                const response = await axios.post('/players',newPlayer)
+                const response = await axios.post(`${URL}/players`,newPlayer)
                 dispatch({
                     type:"ADD_PLAYER",
                     payload:response.data
