@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Input = ({heading, value,setValue}) => {
+const Input = ({heading, value,name,handleInputChange,id}) => {
     return (
         <div className="input__block">
             <h3>{heading}</h3>
@@ -8,9 +8,19 @@ const Input = ({heading, value,setValue}) => {
                     className="input__reg"
                     type="text"
                     value={value}
-                    onChange={(e) =>setValue(e.currentTarget.value)}
+                    onChange={handleInputChange}
                     placeholder={`Enter your ${heading}`}
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+                    name={name}
+=======
+                    
+>>>>>>> Stashed changes
+=======
+                    
+>>>>>>> Stashed changes
                     autoFocus
+                    
                 />          
         </div>
     )

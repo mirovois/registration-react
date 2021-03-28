@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Player } from './Player';
 import {CaretRightFill, CaretDownFill} from 'react-bootstrap-icons';
 import { MyContext } from '../context';
+import {DotLoader} from 'react-spinners'
+import axios from 'axios'
 
 
 // const players = [
@@ -12,60 +14,76 @@ import { MyContext } from '../context';
 
 
 
-const Players = () => {
-const{players, setPlayers} = useContext(MyContext);
-console.log('Players component'+ players)
-// const[players,setPlayers] = useState([])
 
-// useEffect(() =>{
-//     const fetchData = async() =>{
-//         const response = await axios.get('/players')
-//         setPlayers(response.data)
-//         console.log('Fetched data'+ response.data)
-//     }
-//     fetchData()
-// },[])
-    
+// const URL='https://app-webregistration.herokuapp.com'
+
+
+const Players = () => {
+// const{players, setPlayers} = useContext(MyContext);
+const[state, dispatch] = useContext(MyContext);
+const{players} = state;
+// console.log('Players component'+ players)
+// const[players,setPlayers] = useState([])
+const[loading, isLoading] = useState(false)
+
+useEffect(() =>{
+    const fetchData = async() =>{
+        isLoading(true)
+        const response = await axios.get('/players')
+        dispatch({
+            type:"FETCH_PLAYERS",
+            payload: response.data
+        })
+        isLoading(false)
+    }
+    fetchData()
+},[dispatch])    
     const[showMenu, setShowMenu] = useState(true);
     const openMenu =() =>{
         setShowMenu(!showMenu)
     }
     return (
-        <div className="content">
-        <div className="title">
-            <div className="header">
-                <h2>Players</h2>
+        <div className="players">
+        
+            
+                <h2 players__title>Players &nbsp;
                 {players.length>0 &&
-                <span>({players.length})</span>
-                }
+                <span>({players.length})</span>}
+                &nbsp;
                 {showMenu ? 
                 <CaretDownFill
-                size='22'
+                size='18'
                 onClick={openMenu}
                 style={{cursor:'pointer'}}
                 /> :
                 <CaretRightFill
-                size='22'
+                size='18'
                 onClick={openMenu}
                 style={{cursor:'pointer'}}
                 />  
             }
-            </div>
-        </div>
+                </h2>
+        {loading ? 
+            (
+                <div className='loader'>
+                    <DotLoader loading={loading} size={150} color={'rgb(163, 148, 148)'} /> 
+                </div>
 
-        {showMenu&&
-        <div className="players">
-            {players.map(player =>
-               <Player 
-            //    key={player._id}
-               firstName={player.firstName}
-               lastName={player.lastName}
-               occupation={player.occupation}
-               age={player.age}
-            //    id={player._id}
-               />
-            )}
-        </div>}
+            ):
+            showMenu&&
+            <ul className="players__list">
+                {state.players.map(player =>
+                   <Player 
+                   key={player._id}
+                   firstName={player.firstName}
+                   lastName={player.lastName}
+                   occupation={player.occupation}
+                   age={player.age}
+                   id={player._id}
+                   team={player.team}
+                   />
+                )}
+            </ul>}       
         </div>
     )
 }
