@@ -2,7 +2,6 @@ import React, { createContext, useReducer, useState, useEffect } from 'react';
 import teamReducer from './reducer';
 import axios from 'axios';
 
-
 // const initialState = {players:[
 //         {id:1, firstName:"Miro", lastName:"Voisovych", occupation:"dev", age:35},
 //         {id:2, firstName:"Harry", lastName:"Kane", occupation:"forward", age:29},

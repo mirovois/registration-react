@@ -35,6 +35,7 @@ useEffect(() =>{
             payload: response.data
         })
         isLoading(false)
+        console.log('Added objects', response.data)
     }
     fetchData()
 },[dispatch])    
@@ -71,7 +72,7 @@ useEffect(() =>{
 
             ):
             showMenu&&
-            <ul className="players__list">
+            <ul className={`players__list ${players.length >2 ? 'add__scroll' : ''}`}>
                 {state.players.map(player =>
                    <Player 
                    key={player._id}
@@ -81,6 +82,7 @@ useEffect(() =>{
                    age={player.age}
                    id={player._id}
                    team={player.team}
+                   image = {player.image}
                    />
                 )}
             </ul>}       

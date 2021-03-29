@@ -38,8 +38,7 @@
   padding: 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
-  /* justify-content: center; */
+  justify-content: center;
   color: antiquewhite;
 }
 /* .registration .title {
@@ -56,6 +55,7 @@
   /* flex: 0.6; */
 }
 .row {
+  /* margin-top: 1rem; */
   display: flex;
   flex-wrap: wrap;
   column-gap: 4rem;
@@ -64,13 +64,13 @@
 .input__block {
   display: flex;
   flex-direction: column;
-  /* margin: 1rem; */
+  margin-top: 1rem;
 }
 .input__block h3 {
   /*  */
   font-size: 1.2rem;
   font-weight: 500;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .input__reg,
@@ -79,16 +79,18 @@
   outline: none;
   border: 1px solid #c4c4c4;
   padding: 6px;
-  color: #faecec;
+  color: #dbd2d2;
   font-size: 1rem;
   font-weight: 300;
 }
 .input__reg :focus {
   outline: none;
 }
-.input__reg ::placeholder {
+.input__reg::placeholder {
   font-weight: lighter;
   font-size: 0.8rem;
+  color: #dbd2d2;
+  opacity: 0.7;
 }
 .btn__register {
   margin-top: 2rem;
@@ -193,7 +195,6 @@
   min-width: 250px;
   padding-right: 1rem;
   max-height: 200px;
-  overflow-y: scroll;
   /* overflow: hidden; */
 }
 /* SCROLLBAR */
@@ -221,6 +222,9 @@
   scrollbar-width: 10px;
   scrollbar-color: rgb(98, 98, 170) rgb(71, 71, 150);
 }
+.add__scroll {
+  overflow-y: scroll;
+}
 
 /* LOADER */
 .loader {
@@ -235,11 +239,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 .player .personal {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 .avatar {
   margin-right: 8px;
@@ -254,25 +259,18 @@ img {
 .name {
   font-size: 0.8rem;
 }
-.occupation {
-  font-size: 0.7rem;
-  font-weight: 300;
-}
 .age {
   font-size: 0.6rem;
   font-weight: 300;
 }
-/* .info .team {
-  height: 100%;
-  width: 50%;
-  background-color: #1b1d8a;
-  border-radius: 50%;
-} */
 .info :last-child::after {
   height: 100%;
   width: 50%;
   background-color: #1b1d8a;
   border-radius: 50%;
+}
+.control__icon :hover {
+  transform: scale(1.2);
 }
 
 /* MODAL */
@@ -298,6 +296,18 @@ img {
   );
   color: black;
   /* max-width: 700px; */
+}
+.btn__close-modal {
+  opacity: 0.5;
+  cursor: pointer;
+  align-self: flex-end;
+  /* position: absolute;
+  top: 0;
+  right: 0; */
+}
+.btn__close-modal:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 
 /* EDIT FROM */
@@ -347,11 +357,46 @@ form .edit__teams {
   height: 30px;
   width: 100px;
   background-color: transparent;
-  border: solid 2px rgb(158, 154, 154);
   border-radius: 20px;
   cursor: pointer;
+  text-align: center;
+  color: #c4c4c4;
+  padding: 4px;
 }
-.blue {
+.active {
+  border: solid 2px rgb(158, 154, 154);
+}
+.btn__edit {
+  width: 80%;
+  margin: auto;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: rgba(4, 19, 149, 87);
+  padding: 6px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+.btn__edit:hover,
+.btn__edit:focus {
+  /* background-color: rgba(4, 19, 149, 87); */
+  background: rgb(0, 212, 255);
+  background: radial-gradient(
+    circle,
+    rgba(0, 212, 255, 1) 0%,
+    rgba(43, 158, 150, 1) 0%
+  );
+  border: 1px solid #e7d5d5;
+  color: #e7d5d5;
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
 }
 
 select {
@@ -361,18 +406,40 @@ select {
   -moz-padding-end: 20px;
   -webkit-padding-start: 2px;
   -moz-padding-start: 2px;
-  background: rgb(0, 212, 255);
+  /* background: rgb(48, 87, 95);
   background: radial-gradient(
     circle,
     rgba(0, 212, 255, 1) 0%,
     rgba(43, 158, 150, 1) 0%
-  );
+  ); */
 
   padding: 6px;
-  color: #d6d0d0;
+  color: #a39c9c;
   font-size: 1rem;
+  overflow: hidden;
+  background: rgb(48, 87, 95);
+  color: #aeb9c5;
+  border: #2c343c;
+  /* padding: 5px 3px 5px 10px; */
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 10px;
+}
+select::-ms-expand {
+  display: none;
+}
+select option {
+  background-color: rgb(45, 71, 63);
 }
 
+@media screen and (min-width: 860px) and (max-width: 1100px) {
+  .progress__container {
+    flex-direction: column;
+  }
+  .btn__register {
+    font-size: clamp(0.6rem, 0.7rem + 3vw, 1rem);
+  }
+}
 @media screen and (max-width: 860px) {
   .app {
     flex-direction: column;
@@ -385,5 +452,10 @@ select {
   }
   .players__list {
     height: 100%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .btn__register {
+    font-size: clamp(0.8rem, 0.7rem + 5vw, 0.9rem);
   }
 }

@@ -1,17 +1,27 @@
 import React, { useState, useContext } from 'react'
 import Modal from '../component/Modal'
-import img from '../assets/ava.jpg'
-import {PencilSquare, PersonDashFill, Record2Fill} from 'react-bootstrap-icons'
+import img from '../assets/ball.jpg'
+import {PencilSquare, PersonDashFill, Record2Fill, XSquareFill} from 'react-bootstrap-icons'
 import {MyContext} from '../context';
 import axios from 'axios';
+import shevchenko from '../assets/players/shevchenko.jpg'
+import beckham from '../assets/players/beckham.jpg'
+import cr7 from '../assets/players/cr7.jpg'
+import miro from '../assets/players/miro.jpg'
+import zidane from '../assets/players/zidane.jpg'
+import mbappe from '../assets/players/mbappe.jpg'
 
-export const Player = ({id,firstName, lastName, occupation,age,team}) => {
+
+const stars=[miro,beckham,shevchenko, cr7, zidane,mbappe]
+// const random = Math.floor(Math.random() * stars.length);
+// stars[Math.random() * stars.length | 0]
+
+export const Player = ({id,firstName, lastName, occupation,age,team,image}) => {
     const[editFirstName, setEditFirstName] = useState(firstName)
-    const[editLastName, setEditLastName] = useState(firstName)
-    const[editTeam, setEditTeam] = useState(occupation)
+    const[editLastName, setEditLastName] = useState(lastName)
+    const[editTeam, setEditTeam] = useState(team)
     const[editAge, setEditAge] = useState(age)
 
-    // const{removePlayer,addPlayer} = useContext(MyContext);
     const[state, dispatch] = useContext(MyContext);
     const{players} = state;
 
@@ -34,6 +44,20 @@ export const Player = ({id,firstName, lastName, occupation,age,team}) => {
     }
 
     const team_dot = team ==='blues' ? '#1b1d8a' : '#750f3f'
+    console.log('Change team to:', editTeam)
+    const handleChangeTeam = (e) =>{
+        e.preventDefault()
+        if(e.currentTarget.innerHTML === 'reds'){
+            setEditTeam('reds')
+            console.log('Red button clicked',editTeam)
+        } 
+        if(e.currentTarget.innerHTML === 'blues')
+        {
+            setEditTeam('blues')
+            console.log('Blue button clicked', editTeam)
+        }
+    }
+    
     
     const handleRemovePlayer = async (pId) =>{
         try{
@@ -54,18 +78,20 @@ export const Player = ({id,firstName, lastName, occupation,age,team}) => {
             >
                 <div className="personal">
                     <div className="avatar">
-                        <img src={img} alt="avatar"/>
+                        <img src={stars[image]} alt="avatar"/>
                     </div>
-                    <div className="info">
+                    <div className="info"
+                        
+                    >
                         <p className="name">{firstName} {lastName}</p>
                         <p className="age">{age} years</p>
                         <Record2Fill  style={{color:`${team_dot}`}}/>
-                        {/* <p className="team" style={{backgroundColor:`${team_dot}`}}>{team}</p> */}
                     </div>
                 </div>
                 {hover &&
                     <div className="icons">
                         <PencilSquare 
+                            className='control__icon`'
                             size='18'
                             onClick={() =>setShowModal(true)}
                             style={{opacity:0.6,cursor:'pointer'}}
@@ -81,6 +107,10 @@ export const Player = ({id,firstName, lastName, occupation,age,team}) => {
                     showModal={showModal} setShowModal={setShowModal}
                     >
                         <form className="edit__form" onSubmit={() =>handleModifyPlayer(id)}>
+                        <XSquareFill
+                                className='btn__close-modal'
+                                size='18'
+                                onClick={() =>setShowModal(false)}/>
                             <h3>Modify player data</h3>
                             <article>
                                 <h5>First Name</h5>
@@ -104,13 +134,6 @@ export const Player = ({id,firstName, lastName, occupation,age,team}) => {
                                 onChange={(e) =>setEditLastName(e.currentTarget.value)}
                                 />
                            </article>
-                             {/* <input 
-                            className="input__edit"
-                            placeholder="team"
-                            type="text"
-                            value={editTeam}
-                            onChange={(e) =>setEditTeam(e.currentTarget.value)}
-                            /> */}
                             <article>
                                 <h5>Age</h5>
                                 <input 
@@ -122,15 +145,21 @@ export const Player = ({id,firstName, lastName, occupation,age,team}) => {
                                 />
                             </article>
                             <div className='edit__teams'>
-                                <div className='edit__bar' style={{backgroundColor:'#750f3f'}}>1 bar</div>
-                                <div className='edit__bar' style={{backgroundColor:'#1b1d8a'}}>2 bar</div>
+                                <span className={`edit__bar ${editTeam==='reds' ?'active' :''}`}   style={{backgroundColor:'#750f3f'}} onClick={handleChangeTeam}>
+                                    reds</span>
+                                <span className={`edit__bar ${editTeam==='blues' ?'active' :''}`}  style={{backgroundColor:'#1b1d8a'}} onClick={handleChangeTeam}>blues</span>
 
                             </div>
                             <button className='btn__edit'>
                                 Confirm
                             </button>
+                            {/* <button className="btn__close-modal" onClick={() =>setShowModal(false)}>Close</button> */}
                         </form>
-                        <button onClick={() =>setShowModal(false)}>Close</button>
+                            {/* <XSquareFill
+                                className='btn__close'
+                                size='24'
+                                style={{opacity:0.6,cursor:'pointer',marginLeft:'6px'}} 
+                                onClick={() =>setShowModal(false)}/> */}
                     </Modal>
 
             </li>    

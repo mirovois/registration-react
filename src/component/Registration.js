@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 // import Input from './Input'
 import { uuid } from 'uuidv4'
 import axios from 'axios'
-import video from '../assets/video.mp4'
+
 import { MyContext } from '../context';
 
 // const players = [
@@ -14,10 +14,14 @@ const URL='https://app-webregistration.herokuapp.com'
 
 // "proxy": "https://app-webregistration.herokuapp.com"
 
+
+// const random = Math.floor(Math.random() * stars.length);
+// images[Math.random() * images.length | 0]
+
 const Registration = () => {
     
     const[state, dispatch] = useContext(MyContext);
-    const{players} = state;
+    const{players,images} = state;
     
     const[formValues, setFormValues] = useState(players)
     
@@ -38,7 +42,9 @@ const Registration = () => {
     const handleAddPlayer = async(e) =>{
         e.preventDefault()
         isLoading(true)
-        const newPlayer = formValues
+        // const random = images[Math.random() * images.length | 0]
+        const image = Math.floor(Math.random() * 6)
+        const newPlayer = {...formValues, image}
             try{                
                 const response = await axios.post('/players',newPlayer)
                 dispatch({
@@ -98,17 +104,6 @@ const Registration = () => {
                     </div>
 
                     <div className="row">
-                    {/* <div className="input__block">
-                    <h3>Occupation</h3>
-                    <input 
-                        className="input__reg"
-                        heading="Occupation"
-                        value={formValues.occupation}
-                        onChange={handleChange}
-                        placeholder='Enter your occupation'
-                        name='occupation'
-                        />
-                    </div> */}
                     <div className="input__block">
                     <h3>Age *</h3>
                     <input 
@@ -123,7 +118,7 @@ const Registration = () => {
                     </div>
 
                     <div className="input__block">
-                    <h3>Team</h3>
+                    <h3>Team *</h3>
                     <select 
                         name='team'
                         value={formValues.team} 
@@ -134,14 +129,6 @@ const Registration = () => {
                         <option className='option' disabled={deactivate('reds')} value='reds'>Reds</option>
                         <option className='option' disabled={deactivate('blues')} value='blues'>Blues</option>
                     </select>
-                    {/* <input 
-                        className="input__reg"
-                        heading="Occupation"
-                        value={formValues.occupation}
-                        onChange={handleChange}
-                        placeholder='Enter your occupation'
-                        name='occupation'
-                        /> */}
                     </div>
                     </div>
                     <button className="btn__register" 
