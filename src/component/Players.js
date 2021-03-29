@@ -15,7 +15,7 @@ import axios from 'axios'
 
 
 
-// const URL='https://app-webregistration.herokuapp.com'
+const URL='https://app-webregistration.herokuapp.com'
 
 
 const Players = () => {
@@ -29,7 +29,7 @@ const[loading, isLoading] = useState(false)
 useEffect(() =>{
     const fetchData = async() =>{
         isLoading(true)
-        const response = await axios.get('/players')
+        const response = await axios.get(`${URL}/players`)
         dispatch({
             type:"FETCH_PLAYERS",
             payload: response.data

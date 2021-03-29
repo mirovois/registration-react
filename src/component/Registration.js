@@ -46,7 +46,7 @@ const Registration = () => {
         const image = Math.floor(Math.random() * 6)
         const newPlayer = {...formValues, image}
             try{                
-                const response = await axios.post('/players',newPlayer)
+                const response = await axios.post(`${URL}/players`,newPlayer)
                 dispatch({
                     type:"ADD_PLAYER",
                     payload:response.data

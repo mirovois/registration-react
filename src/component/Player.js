@@ -14,6 +14,7 @@ import mbappe from '../assets/players/mbappe.jpg'
 const stars=[miro,beckham,shevchenko, cr7, zidane,mbappe]
 // const random = Math.floor(Math.random() * stars.length);
 // stars[Math.random() * stars.length | 0]
+const URL= 'https://app-webregistration.herokuapp.com'
 
 export const Player = ({id,firstName, lastName, occupation,age,team,image}) => {
     const[editFirstName, setEditFirstName] = useState(firstName)
@@ -30,7 +31,7 @@ export const Player = ({id,firstName, lastName, occupation,age,team,image}) => {
     const handleModifyPlayer = async(pid) =>{
         const modifiedPlayer = {firstName:editFirstName,lastName:editLastName,team:editTeam,age:editAge}
         try{
-            const response = await axios.patch(`/players/${pid}`, modifiedPlayer)
+            const response = await axios.patch(`${URL}/players/${pid}`, modifiedPlayer)
             dispatch({
                 type:"MODIFY_PLAYER",
                 payload:response.data
@@ -60,7 +61,7 @@ export const Player = ({id,firstName, lastName, occupation,age,team,image}) => {
     
     const handleRemovePlayer = async (pId) =>{
         try{
-            await axios.delete(`/players/${pId}`)
+            await axios.delete(`${URL}/players/${pId}`)
             dispatch({
                 type:"REMOVE_PLAYER",
                 payload: pId
