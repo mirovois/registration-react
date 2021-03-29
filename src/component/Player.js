@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import Modal from '../component/Modal'
-import img from '../assets/ball.jpg'
 import {PencilSquare, PersonDashFill, Record2Fill, XSquareFill} from 'react-bootstrap-icons'
 import {MyContext} from '../context';
 import axios from 'axios';
